@@ -66,9 +66,9 @@ for ei=1:opt.epochAmt
         
         %%% Forward path & Backprop
         if bDrop
-            [bp,NN]=nn_ff(NN,X(I,:),activeI); % bp=batch prediction
+            [bp,NN]=nn_ff(NN,X(I,:),true,activeI); % bp=batch prediction
         else
-            [bp,NN]=nn_ff(NN,X(I,:));
+            [bp,NN]=nn_ff(NN,X(I,:),true);
         end
         
         % Get training cost

@@ -1,14 +1,14 @@
 % Train RNN
 function [nnc,outerr,P]=rnn_train(nnc,X,Y,opt)
 sAmt=size(X,1);
-dim=size(nnc.R,1); % number of hidden units.
+hNum=size(nnc.R,1); % number of hidden units.
 
 % Propagate sample in RNN.
 [P,nnc]=rnn_ff(nnc,X,true);
 
 % Backprop prepare.
 Rt=nnc.R'; % recurrent conn transpose
-Wot=eye(dim); % output conn transpose
+Wot=eye(hNum); % output conn transpose
 dfzin=nnc.df(nnc.zin);
 % * lower and higher bound of df
 % dfzin=max(dfzin,0.01);
@@ -20,7 +20,7 @@ outerr = detcost * Wot .* dfzin;
 % outerr(1:end-1)=0;
 
 % Do recurrent layer error backprop through time.
-nnc.err=zeros(sAmt,dim);
+nnc.err=zeros(sAmt,hNum);
 nnc.err(sAmt,:)=outerr(sAmt,:);
 for si=sAmt-1:-1:1
     temp = outerr(si,:) + nnc.err(si+1,:)*Rt;% error from output(t) + from next step(t+1).

@@ -1,5 +1,6 @@
 % 1 layer RNN
-% layerSize: [input connection num, unit num]
+% layerSize: [input connection num of units, hidden unit num]
+% recurrent connection is default [hidden X hidden].
 function NN=rnncell_setup(layerSize)
 opt=struct('unitFunc_output','tanh','bBias',false);
 NN=net_setup(layerSize,opt);

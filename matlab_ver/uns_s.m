@@ -3,8 +3,8 @@
 function [NN,err] = uns_s(NN,NP,X,Y,opt)
 lNum=length(NN);
 
-dbnLastLayer=4; % training by DNB of part layers end at this.
-bpFirstLayer=4; % DP training part layers, start at this. (bpFirstLayer as input layer, not to be trained)
+dbnLastLayer=lNum-1; % training by DNB of part layers end at this.
+bpFirstLayer=1; % BP training part layers, start at this. (bpFirstLayer as input layer, not to be trained)
 
 %%% Unsupervised Training of network by DBN.
 optdbn=opt;

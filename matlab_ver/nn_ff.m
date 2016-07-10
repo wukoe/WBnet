@@ -1,6 +1,6 @@
 % Feed-forward network, forward propagation.
 %   [X,NN]=nn_ff(NN,X,varargin) varin=I
-function [X,NN]=nn_ff(NN,X,varargin)
+function [X,NN]=nn_ff(NN,X,flagTrain,varargin)
 lAmt=numel(NN);
 sAmt=size(X,1);
 
@@ -29,9 +29,18 @@ else
         if NN{li}.bBias
             X = X + repmat(NN{li}.B, sAmt,1);
         end
-        NN{li}.zin=X;% total input is necessary to record too.
-        X = NN{li}.f(X); %* another form arrayfun(@f,X)
-        NN{li}.act=X;
+        if flagTrain
+            NN{li}.zin=X;% total input is necessary to record too.
+            X = NN{li}.f(X); %* another form arrayfun(@f,X)
+            NN{li}.act=X;
+        else
+            X = NN{li}.f(X); %* another form arrayfun(@f,X)
+            NN{li}.zin=[];
+            NN{li}.act=[];
+            NN{li}.err=[];
+            NN{li}.vW=[]; NN{li}.momentumW=[];
+            NN{li}.vB=[]; NN{li}.momentumB=[];
+        end
     end
 end
 
